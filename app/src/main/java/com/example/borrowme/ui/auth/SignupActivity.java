@@ -1,4 +1,4 @@
-package com.example.borrowme;
+package com.example.borrowme.ui.auth;
 
 import android.os.Bundle;
 import android.text.InputType;
@@ -13,9 +13,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.borrowme.R;
 import com.google.android.material.button.MaterialButton;
 
-public class MainActivity extends AppCompatActivity {
+public class SignupActivity extends AppCompatActivity {
 
     private boolean isPasswordVisible = false;
 
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_signup);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.tvLogin).setOnClickListener(v -> {
+            // Logic for navigating to login will be here
             Toast.makeText(this, "Navigate to Login", Toast.LENGTH_SHORT).show();
         });
 
