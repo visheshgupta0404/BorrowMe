@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_light"
+    tools:context=".ui.splash.SplashActivity">
+
+    <!-- Blurred background accents (simulated with circles) -->
+    <View
+        android:layout_width="256dp"
+        android:layout_height="256dp"
+        android:layout_marginStart="-39dp"
+        android:layout_marginTop="-88dp"
+        android:alpha="0.05"
+        android:background="@drawable/circle_blue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="320dp"
+        android:layout_height="320dp"
+        android:layout_marginEnd="-70dp"
+        android:layout_marginBottom="-100dp"
+        android:alpha="0.05"
+        android:background="@drawable/circle_green"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Center Content -->
+    <LinearLayout
+        android:id="@+id/centerContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.4">
+
+        <!-- Logo Icon Container -->
+        <FrameLayout
+            android:layout_width="128dp"
+            android:layout_height="128dp"
+            android:layout_marginBottom="32dp">
+
+            <View
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:rotation="6"
+                android:background="@drawable/bg_logo_accent_blue" />
+
+            <View
+                android:layout_width="128dp"
+                android:layout_height="128dp"
+                android:rotation="-6"
+                android:background="@drawable/bg_logo_accent_green" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="102dp"
+                android:layout_height="98dp"
+                android:layout_gravity="center"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="24dp"
+                app:cardElevation="8dp"
+                app:strokeWidth="0dp">
+
+                <View
+                    android:layout_width="52dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:background="@color/primary_blue" />
+            </com.google.android.material.card.MaterialCardView>
+        </FrameLayout>
+
+        <!-- App Name -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="Borrow"
+                android:textColor="@color/text_dark"
+                android:textSize="36sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:text="Me"
+                android:textColor="@color/primary_blue"
+                android:textSize="36sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="sans-serif-medium"
+            android:letterSpacing="0.02"
+            android:text="Trust. Borrow. Share."
+            android:textColor="@color/text_gray"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+    <!-- Bottom Progress Section -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginBottom="80dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-medium"
+                android:text="Connecting to campus network..."
+                android:textColor="#475569"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:fontFamily="sans-serif-black"
+                android:text="30%"
+                android:textColor="@color/primary_blue"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:progress="30"
+            app:indicatorColor="@color/primary_blue"
+            app:trackColor="@color/border_color"
+            app:trackCornerRadius="4dp"
+            app:trackThickness="8dp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="13dp"
+                android:layout_height="11dp"
+                android:background="@color/text_light_gray" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="sans-serif-black"
+                android:letterSpacing="0.1"
+                android:text="UNIVERSITY EDITION"
+                android:textColor="@color/text_light_gray"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ConstraintLayout>
