@@ -22,15 +22,15 @@
         </activity>
 
         <activity
+            android:name=".ui.dashboard.HomeActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.dashboard.FeedActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".ui.auth.SignupActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".ui.borrowing.BorrowRequestActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".ui.borrowing.RequestsManagementActivity"
             android:exported="false" />
 
         <activity
