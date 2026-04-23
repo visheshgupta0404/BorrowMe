@@ -1,5 +1,6 @@
 package com.example.borrowme;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.widget.EditText;
@@ -13,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.borrowme.ui.items.ItemDetailActivity;
 import com.google.android.material.button.MaterialButton;
 
 public class MainActivity extends AppCompatActivity {
@@ -31,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setupUI();
+        
+        // TEMPORARY: For testing Item Detail Screen
+        Toast.makeText(this, "Click Create Account to see Item Details", Toast.LENGTH_LONG).show();
     }
 
     private void setupUI() {
@@ -54,13 +59,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnCreateAccount.setOnClickListener(v -> {
-            String name = etFullName.getText().toString().trim();
-            String email = etEmail.getText().toString().trim();
-            if (name.isEmpty() || email.isEmpty()) {
-                Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-            } else {
-                Toast.makeText(this, "Account created for " + name, Toast.LENGTH_SHORT).show();
-            }
+            // FOR NOW: Directly navigate to Item Detail Screen for preview
+            Intent intent = new Intent(this, ItemDetailActivity.class);
+            startActivity(intent);
         });
 
         findViewById(R.id.tvLogin).setOnClickListener(v -> {
