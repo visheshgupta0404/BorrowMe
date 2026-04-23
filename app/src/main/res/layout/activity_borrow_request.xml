@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <!-- Header -->
+    <LinearLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_back"
+            android:contentDescription="Back" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="40dp"
+            android:gravity="center"
+            android:text="Borrow Request"
+            android:textColor="@color/text_dark"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/headerLayout"
+        app:layout_constraintBottom_toTopOf="@id/bottomLayout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- Item Card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_input"
+                android:backgroundTint="@color/white"
+                android:padding="16dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:elevation="1dp">
+
+                <ImageView
+                    android:id="@+id/ivItemImage"
+                    android:layout_width="64dp"
+                    android:layout_height="64dp"
+                    android:background="@color/bg_light"
+                    android:scaleType="centerCrop"
+                    app:srcCompat="@drawable/ic_launcher_foreground" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvItemName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sony WH-1000XM6"
+                        android:textColor="@color/text_dark"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvLentBy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Lent by Vivek"
+                        android:textColor="@color/text_gray"
+                        android:textSize="14sp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                style="@style/InputLabel"
+                android:layout_marginTop="24dp"
+                android:text="Lending Duration"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_dark" />
+
+            <!-- Calendar Container (Placeholder) -->
+            <FrameLayout
+                android:id="@+id/calendarContainer"
+                android:layout_width="match_parent"
+                android:layout_height="330dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_input"
+                android:backgroundTint="@color/white"
+                android:elevation="1dp">
+
+                <CalendarView
+                    android:id="@+id/calendarView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tvSelectedDuration"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Selected: Oct 5 - Oct 11 (6 days)"
+                android:textColor="@color/text_gray"
+                android:textSize="12sp" />
+
+            <TextView
+                style="@style/InputLabel"
+                android:layout_marginTop="24dp"
+                android:text="Optional Message"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/text_dark" />
+
+            <EditText
+                android:id="@+id/etMessage"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/bg_input"
+                android:gravity="top"
+                android:hint="Hey Vivek! ....."
+                android:padding="16dp"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Bottom Action -->
+    <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:background="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/btnSubmitRequest"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:backgroundTint="@color/primary_blue"
+            android:text="Submit Request"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:cornerRadius="12dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="OWNER WILL BE NOTIFIED IMMEDIATELY"
+            android:textColor="@color/text_light_gray"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.05" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
