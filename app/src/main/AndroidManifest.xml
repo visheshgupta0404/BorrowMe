@@ -38,6 +38,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".ui.profile.MyLendingsActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
 
