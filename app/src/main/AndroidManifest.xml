@@ -26,6 +26,14 @@
             android:exported="false" />
 
         <activity
+            android:name=".ui.borrowing.BorrowRequestActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.borrowing.RequestsManagementActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".MainActivity"
             android:exported="false" />
 

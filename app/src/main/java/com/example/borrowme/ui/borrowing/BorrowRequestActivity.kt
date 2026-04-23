@@ -8,7 +8,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.borrowme.R
-import java.util.Calendar
 
 class BorrowRequestActivity : AppCompatActivity() {
 
@@ -17,7 +16,7 @@ class BorrowRequestActivity : AppCompatActivity() {
     private lateinit var etMessage: EditText
     private lateinit var tvSelectedDuration: TextView
 
-    override fun Bundle?(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_borrow_request)
 
@@ -48,10 +47,11 @@ class BorrowRequestActivity : AppCompatActivity() {
     }
 
     private fun validateInput(): Boolean {
-        // For now, just a basic check if the message is not empty (if it was required)
-        // In this UI it says "Optional Message", so we might not need strict validation here.
-        // However, we should ideally check if a date range was selected.
-        
+        // Basic check if a duration has been selected (placeholder logic)
+        if (tvSelectedDuration.text == "Select a start and end date") {
+            Toast.makeText(this, "Please select a lending duration", Toast.LENGTH_SHORT).show()
+            return false
+        }
         return true
     }
 
