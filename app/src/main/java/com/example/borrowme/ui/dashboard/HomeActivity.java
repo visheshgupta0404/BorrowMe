@@ -1,5 +1,6 @@
 package com.example.borrowme.ui.dashboard;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -10,6 +11,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.borrowme.R;
+import com.example.borrowme.ui.items.AddItemActivity;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -35,8 +37,9 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         findViewById(R.id.btnLend).setOnClickListener(v -> {
-            // TODO: Navigate to Add Item Screen
-            Toast.makeText(this, "Opening Lend Item Screen", Toast.LENGTH_SHORT).show();
+            // Navigate to Add Item Screen
+            Intent intent = new Intent(HomeActivity.this, AddItemActivity.class);
+            startActivity(intent);
         });
 
         findViewById(R.id.btnViewDetails).setOnClickListener(v -> {
@@ -46,7 +49,8 @@ public class HomeActivity extends AppCompatActivity {
 
         findViewById(R.id.fabAdd).setOnClickListener(v -> {
             // Quick action to add item
-            Toast.makeText(this, "Quick Add Item", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(HomeActivity.this, AddItemActivity.class);
+            startActivity(intent);
         });
 
         findViewById(R.id.tvSeeAll).setOnClickListener(v -> {
