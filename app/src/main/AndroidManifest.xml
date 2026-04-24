@@ -49,6 +49,10 @@
             android:name=".ui.items.ItemDetailActivity"
             android:exported="false" />
 
+        <activity
+            android:name=".ui.items.AddItemActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>
