@@ -1,11 +1,15 @@
 package com.example.borrowme.ui.borrowing
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.borrowme.R
+import com.example.borrowme.ui.dashboard.FeedActivity
+import com.example.borrowme.ui.profile.MyLendingsActivity
+import com.example.borrowme.ui.profile.ProfileActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.tabs.TabLayout
 
@@ -48,16 +52,19 @@ class RequestsManagementActivity : AppCompatActivity() {
         bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.nav_feed -> {
-                    // TODO: Navigate to Feed Screen
+                    startActivity(Intent(this, FeedActivity::class.java))
+                    finish()
                     true
                 }
                 R.id.nav_lendings -> {
-                    // TODO: Navigate to Lendings Screen
+                    startActivity(Intent(this, MyLendingsActivity::class.java))
+                    finish()
                     true
                 }
                 R.id.nav_requests -> true
                 R.id.nav_profile -> {
-                    // TODO: Navigate to Profile Screen
+                    startActivity(Intent(this, ProfileActivity::class.java))
+                    finish()
                     true
                 }
                 else -> false

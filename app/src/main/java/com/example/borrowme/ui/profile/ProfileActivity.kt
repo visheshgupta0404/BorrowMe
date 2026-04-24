@@ -5,8 +5,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.borrowme.databinding.ActivityProfileBinding
-// TODO: Import other activities when they are available
-// import com.example.borrowme.ui.auth.LoginActivity
+import com.example.borrowme.ui.auth.SignupActivity
+import com.example.borrowme.ui.dashboard.FeedActivity
+import com.example.borrowme.ui.borrowing.RequestsManagementActivity
 
 class ProfileActivity : AppCompatActivity() {
 
@@ -34,22 +35,20 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         binding.btnEditProfile.setOnClickListener {
-            // TODO: Navigate to Edit Profile Screen
             Toast.makeText(this, "Navigate to Edit Profile", Toast.LENGTH_SHORT).show()
         }
 
         binding.btnLogout.setOnClickListener {
-            // TODO: Perform logout logic and navigate to Login Screen
-            // val intent = Intent(this, LoginActivity::class.java)
-            // intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            // startActivity(intent)
+            val intent = Intent(this, SignupActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
             Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show()
             finish()
         }
 
         binding.btnSeeAll.setOnClickListener {
-            // TODO: Navigate to All Activity Screen
-            Toast.makeText(this, "See All Activity", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, RequestsManagementActivity::class.java)
+            startActivity(intent)
         }
     }
 }

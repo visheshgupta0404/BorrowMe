@@ -1,5 +1,6 @@
 package com.example.borrowme.ui.items;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -7,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.example.borrowme.R;
+import com.example.borrowme.ui.profile.MyLendingsActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.slider.Slider;
 import com.google.android.material.materialswitch.MaterialSwitch;
@@ -46,12 +48,10 @@ public class AddItemActivity extends AppCompatActivity {
         btnBack.setOnClickListener(v -> finish());
 
         btnChooseFiles.setOnClickListener(v -> {
-            // TODO: Implement image picker
             Toast.makeText(this, "Opening Gallery...", Toast.LENGTH_SHORT).show();
         });
 
         findViewById(R.id.btnSelectCategory).setOnClickListener(v -> {
-            // TODO: Show category selection dialog
             Toast.makeText(this, "Select Category", Toast.LENGTH_SHORT).show();
         });
 
@@ -82,12 +82,9 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     private void submitItem() {
-        // TODO: Implement actual submission logic
         Toast.makeText(this, "Item added successfully!", Toast.LENGTH_SHORT).show();
-        
-        // TODO: Navigate to Home Screen or My Lendings
-        // Intent intent = new Intent(this, HomeActivity.class);
-        // startActivity(intent);
+        Intent intent = new Intent(this, MyLendingsActivity.class);
+        startActivity(intent);
         finish();
     }
 }

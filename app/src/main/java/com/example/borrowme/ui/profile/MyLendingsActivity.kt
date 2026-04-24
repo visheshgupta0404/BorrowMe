@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.borrowme.databinding.ActivityMyLendingsBinding
-// TODO: Import ItemDetailActivity when available
-// import com.example.borrowme.ui.items.ItemDetailActivity
+import com.example.borrowme.ui.dashboard.FeedActivity
+import com.example.borrowme.ui.borrowing.RequestsManagementActivity
 
 class MyLendingsActivity : AppCompatActivity() {
 
@@ -22,7 +22,6 @@ class MyLendingsActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        // Set selected item in bottom navigation
         binding.bottomNavigation.selectedItemId = com.example.borrowme.R.id.nav_lendings
     }
 
@@ -32,29 +31,29 @@ class MyLendingsActivity : AppCompatActivity() {
         }
 
         binding.btnEditListing1.setOnClickListener {
-            // TODO: Navigate to Edit Item Screen
             Toast.makeText(this, "Edit Calculus Textbook", Toast.LENGTH_SHORT).show()
         }
 
         binding.btnEditListing2.setOnClickListener {
-            // TODO: Navigate to Edit Item Screen
             Toast.makeText(this, "Edit Sony WH-1000XM6", Toast.LENGTH_SHORT).show()
         }
 
         binding.bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 com.example.borrowme.R.id.nav_feed -> {
-                    // TODO: Navigate to Feed/Home Screen
+                    startActivity(Intent(this, FeedActivity::class.java))
+                    finish()
                     true
                 }
                 com.example.borrowme.R.id.nav_lendings -> true
                 com.example.borrowme.R.id.nav_requests -> {
-                    // TODO: Navigate to Requests Screen
+                    startActivity(Intent(this, RequestsManagementActivity::class.java))
+                    finish()
                     true
                 }
                 com.example.borrowme.R.id.nav_profile -> {
-                    val intent = Intent(this, ProfileActivity::class.java)
-                    startActivity(intent)
+                    startActivity(Intent(this, ProfileActivity::class.java))
+                    finish()
                     true
                 }
                 else -> false

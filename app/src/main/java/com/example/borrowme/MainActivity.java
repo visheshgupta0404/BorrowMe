@@ -14,8 +14,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.borrowme.ui.dashboard.HomeActivity;
 import com.example.borrowme.ui.items.AddItemActivity;
-import com.example.borrowme.ui.items.ItemDetailActivity;
 import com.google.android.material.button.MaterialButton;
 
 public class MainActivity extends AppCompatActivity {
@@ -34,9 +34,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setupUI();
-        
-        // TEMPORARY: For testing screens
-        Toast.makeText(this, "Click Create Account to see Add Item Screen", Toast.LENGTH_LONG).show();
     }
 
     private void setupUI() {
@@ -60,9 +57,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnCreateAccount.setOnClickListener(v -> {
-            // Navigate to Add Item Screen for testing
-            Intent intent = new Intent(this, AddItemActivity.class);
+            // Navigate to Home Screen
+            Intent intent = new Intent(this, HomeActivity.class);
             startActivity(intent);
+            finish();
         });
 
         findViewById(R.id.tvLogin).setOnClickListener(v -> {
