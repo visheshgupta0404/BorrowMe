@@ -15,6 +15,19 @@ import com.example.borrowme.R;
 
 public class FigmaDashboardFragment extends Fragment {
 
+    private View btnNotifications;
+    private View btnViewDetails;
+    private View cardBorrow;
+    private View cardLend;
+    private View btnSeeAll;
+    private View cardRequestHairDryer;
+    private View cardRequestAdapter;
+    private View navHome;
+    private View navLendings;
+    private View navRequests;
+    private View navProfile;
+    private View fabAddItem;
+
     public FigmaDashboardFragment() {
         super(R.layout.fragment_figma_dashboard);
     }
@@ -38,26 +51,46 @@ public class FigmaDashboardFragment extends Fragment {
             return insets;
         });
 
-        bindClick(view, R.id.btn_notifications, "Notifications");
-        bindClick(view, R.id.btn_view_details, "View details");
-        bindClick(view, R.id.card_borrow, "Borrow");
-        bindClick(view, R.id.card_lend, "Lend item");
-        bindClick(view, R.id.btn_see_all, "See all requests");
-        bindClick(view, R.id.card_request_hair_dryer, "Hair Dryer");
-        bindClick(view, R.id.card_request_adapter, "HDMI Adapter");
-        bindClick(view, R.id.fab_add_item, "Add item");
-        bindClick(view, R.id.nav_home, "Home");
-        bindClick(view, R.id.nav_lendings, "Lendings");
-        bindClick(view, R.id.nav_requests, "Requests");
-        bindClick(view, R.id.nav_profile, "Profile");
+        initViews(view);
+        setupListeners();
     }
 
-    private void bindClick(@NonNull View parent, int viewId, @NonNull String label) {
-        View target = parent.findViewById(viewId);
-        if (target != null) {
-            target.setOnClickListener(v ->
-                    Toast.makeText(requireContext(), label, Toast.LENGTH_SHORT).show()
-            );
+    private void initViews(@NonNull View root) {
+        btnNotifications = root.findViewById(R.id.btn_notifications);
+        btnViewDetails = root.findViewById(R.id.btn_view_details);
+        cardBorrow = root.findViewById(R.id.card_borrow);
+        cardLend = root.findViewById(R.id.card_lend);
+        btnSeeAll = root.findViewById(R.id.btn_see_all);
+        cardRequestHairDryer = root.findViewById(R.id.card_request_hair_dryer);
+        cardRequestAdapter = root.findViewById(R.id.card_request_adapter);
+        navHome = root.findViewById(R.id.nav_home);
+        navLendings = root.findViewById(R.id.nav_lendings);
+        navRequests = root.findViewById(R.id.nav_requests);
+        navProfile = root.findViewById(R.id.nav_profile);
+        fabAddItem = root.findViewById(R.id.fab_add_item);
+    }
+
+    private void setupListeners() {
+        bindClick(btnNotifications, "Notifications");
+        bindClick(btnViewDetails, "View details");
+        bindClick(cardBorrow, "Borrow");
+        bindClick(cardLend, "Lend item");
+        bindClick(btnSeeAll, "See all requests");
+        bindClick(cardRequestHairDryer, "Hair Dryer");
+        bindClick(cardRequestAdapter, "HDMI Adapter");
+        bindClick(fabAddItem, "Add item");
+        bindClick(navHome, "Home");
+        bindClick(navLendings, "Lendings");
+        bindClick(navRequests, "Requests");
+        bindClick(navProfile, "Profile");
+    }
+
+    private void bindClick(@Nullable View target, @NonNull String label) {
+        if (target == null) {
+            return;
         }
+        target.setOnClickListener(v ->
+                Toast.makeText(requireContext(), label, Toast.LENGTH_SHORT).show()
+        );
     }
 }

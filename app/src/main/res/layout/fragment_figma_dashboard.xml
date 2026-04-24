@@ -134,7 +134,7 @@
                             android:letterSpacing="0.04"
                             android:text="TRUSTED BORROWER"
                             android:textColor="@color/primary_blue"
-                            android:textSize="11sp" />
+                            android:textSize="10sp" />
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -692,13 +692,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
+        android:layout_gravity="bottom|center_horizontal"
         android:clickable="true"
         android:focusable="true"
         android:src="@drawable/ic_add"
         app:backgroundTint="@color/primary_blue"
-        app:layout_anchor="@id/figma_dashboard_root"
-        app:layout_anchorGravity="bottom|center_horizontal"
-        app:maxImageSize="22dp"
+        app:elevation="16dp"
+        app:maxImageSize="24dp"
         app:tint="@color/white" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
