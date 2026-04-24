@@ -14,6 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.borrowme.ui.items.AddItemActivity;
 import com.example.borrowme.ui.items.ItemDetailActivity;
 import com.google.android.material.button.MaterialButton;
 
@@ -34,8 +35,8 @@ public class MainActivity extends AppCompatActivity {
 
         setupUI();
         
-        // TEMPORARY: For testing Item Detail Screen
-        Toast.makeText(this, "Click Create Account to see Item Details", Toast.LENGTH_LONG).show();
+        // TEMPORARY: For testing screens
+        Toast.makeText(this, "Click Create Account to see Add Item Screen", Toast.LENGTH_LONG).show();
     }
 
     private void setupUI() {
@@ -59,8 +60,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         btnCreateAccount.setOnClickListener(v -> {
-            // FOR NOW: Directly navigate to Item Detail Screen for preview
-            Intent intent = new Intent(this, ItemDetailActivity.class);
+            // Navigate to Add Item Screen for testing
+            Intent intent = new Intent(this, AddItemActivity.class);
             startActivity(intent);
         });
 
