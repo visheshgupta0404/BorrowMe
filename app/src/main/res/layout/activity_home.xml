@@ -2,14 +2,13 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/home_root"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".ui.dashboard.HomeActivity">
 
     <androidx.core.widget.NestedScrollView
-        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingBottom="80dp"
@@ -518,7 +517,6 @@
 
     <!-- Bottom Navigation -->
     <com.google.android.material.card.MaterialCardView
-        android:id="@+id/bottomNavCard"
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_gravity="bottom"
@@ -641,7 +639,6 @@
         android:src="@drawable/ic_add"
         app:backgroundTint="@color/primary_blue"
         app:fabSize="normal"
-        app:layout_anchor="@id/home_root"
         app:layout_anchorGravity="bottom|center_horizontal"
         app:tint="@color/white" />
 

@@ -3,6 +3,7 @@ package com.example.borrowme;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -27,11 +28,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        
+        View mainView = findViewById(android.R.id.content);
+        if (mainView != null) {
+            ViewCompat.setOnApplyWindowInsetsListener(mainView, (v, insets) -> {
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+                return insets;
+            });
+        }
 
         setupUI();
     }
@@ -42,40 +47,64 @@ public class MainActivity extends AppCompatActivity {
         EditText etPassword = findViewById(R.id.etPassword);
         ImageView ivTogglePassword = findViewById(R.id.ivTogglePassword);
         MaterialButton btnCreateAccount = findViewById(R.id.btnCreateAccount);
-        findViewById(R.id.btnSelectHostel).setOnClickListener(v -> showHostelDialog());
+        
+        View btnSelectHostel = findViewById(R.id.btnSelectHostel);
+        if (btnSelectHostel != null) {
+            btnSelectHostel.setOnClickListener(v -> showHostelDialog());
+        }
 
-        ivTogglePassword.setOnClickListener(v -> {
-            isPasswordVisible = !isPasswordVisible;
-            if (isPasswordVisible) {
-                etPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                ivTogglePassword.setImageResource(R.drawable.ic_visibility);
-            } else {
-                etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                ivTogglePassword.setImageResource(R.drawable.ic_visibility_off);
-            }
-            etPassword.setSelection(etPassword.getText().length());
-        });
+        if (ivTogglePassword != null && etPassword != null) {
+            ivTogglePassword.setOnClickListener(v -> {
+                isPasswordVisible = !isPasswordVisible;
+                if (isPasswordVisible) {
+                    etPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                    ivTogglePassword.setImageResource(R.drawable.ic_visibility);
+                } else {
+                    etPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                    ivTogglePassword.setImageResource(R.drawable.ic_visibility_off);
+                }
+                etPassword.setSelection(etPassword.getText().length());
+            });
+        }
 
-        btnCreateAccount.setOnClickListener(v -> {
-            // Navigate to Home Screen
-            Intent intent = new Intent(this, HomeActivity.class);
-            startActivity(intent);
-            finish();
-        });
+        if (btnCreateAccount != null) {
+            btnCreateAccount.setOnClickListener(v -> {
+                // Navigate to Home Screen
+                Intent intent = new Intent(this, HomeActivity.class);
+                startActivity(intent);
+                finish();
+            });
+        }
 
-        findViewById(R.id.tvLogin).setOnClickListener(v -> {
-            Toast.makeText(this, "Navigate to Login", Toast.LENGTH_SHORT).show();
-        });
+        View tvLogin = findViewById(R.id.tvLogin);
+        if (tvLogin != null) {
+            tvLogin.setOnClickListener(v -> {
+                Toast.makeText(this, "Navigate to Login", Toast.LENGTH_SHORT).show();
+            });
+        }
 
-        findViewById(R.id.btnBack).setOnClickListener(v -> finish());
+        View btnBack = findViewById(R.id.btnBack);
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v -> finish());
+        }
     }
 
     private void showHostelDialog() {
-        String[] hostels = {"Block A", "Block B", "Block C", "Block D", "Block E"};
+        String[] hostels = {
+            "Bhagat Singh",
+            "Ratan Tata",
+            "Kalpana Chawla",
+            "APJ Abdul Kalam",
+            "Gargi",
+            "Homi Baba"
+        };
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Select Hostel Block");
         builder.setItems(hostels, (dialog, which) -> {
-            ((android.widget.TextView) findViewById(R.id.tvHostel)).setText(hostels[which]);
+            android.widget.TextView tvHostel = findViewById(R.id.tvHostel);
+            if (tvHostel != null) {
+                tvHostel.setText(hostels[which]);
+            }
         });
         builder.show();
     }

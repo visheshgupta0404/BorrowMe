@@ -94,7 +94,14 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void showHostelDialog() {
-        String[] hostels = {"Block A", "Block B", "Block C", "Block D", "Block E"};
+        String[] hostels = {
+            "Bhagat Singh Hostel", 
+            "Ratan Tata Hostel", 
+            "Kalpana Chawla", 
+            "APJ Abdul Kalam", 
+            "Gargi", 
+            "Homi Baba"
+        };
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Select Hostel Block");
         builder.setItems(hostels, (dialog, which) -> {
