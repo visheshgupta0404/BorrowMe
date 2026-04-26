@@ -1,17 +1,55 @@
 package com.example.borrowme.ui.profile
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.core.content.FileProvider
 import com.example.borrowme.databinding.ActivityProfileBinding
 import com.example.borrowme.ui.auth.SignupActivity
-import com.example.borrowme.ui.dashboard.FeedActivity
 import com.example.borrowme.ui.borrowing.RequestsManagementActivity
+import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 class ProfileActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
+    private var photoUri: Uri? = null
+    private var currentPhotoPath: String? = null
+
+    private val requestPermissionLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) {
+                showImageSourceDialog()
+            } else {
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    private val takePhotoLauncher =
+        registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
+            if (success) {
+                photoUri?.let { binding.ivProfile.setImageURI(it) }
+            }
+        }
+
+    private val pickImageLauncher =
+        registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
+            uri?.let {
+                photoUri = it
+                binding.ivProfile.setImageURI(it)
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +69,11 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         binding.btnEditImage.setOnClickListener {
-            Toast.makeText(this, "Edit profile image", Toast.LENGTH_SHORT).show()
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+                showImageSourceDialog()
+            } else {
+                requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+            }
         }
 
         binding.btnEditProfile.setOnClickListener {
@@ -49,6 +91,39 @@ class ProfileActivity : AppCompatActivity() {
         binding.btnSeeAll.setOnClickListener {
             val intent = Intent(this, RequestsManagementActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    private fun showImageSourceDialog() {
+        val options = arrayOf("Take Photo", "Choose from Gallery")
+        AlertDialog.Builder(this)
+            .setTitle("Select Profile Image")
+            .setItems(options) { _, which ->
+                if (which == 0) {
+                    launchCamera()
+                } else {
+                    pickImageLauncher.launch("image/*")
+                }
+            }
+            .show()
+    }
+
+    private fun launchCamera() {
+        try {
+            val photoFile = createImageFile()
+            photoUri = FileProvider.getUriForFile(this, "$packageName.fileprovider", photoFile)
+            takePhotoLauncher.launch(photoUri)
+        } catch (ex: IOException) {
+            Toast.makeText(this, "Error creating image file", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun createImageFile(): File {
+        val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
+        val storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+        return File.createTempFile("JPEG_${timeStamp}_", ".jpg", storageDir).apply {
+            currentPhotoPath = absolutePath
         }
     }
 }

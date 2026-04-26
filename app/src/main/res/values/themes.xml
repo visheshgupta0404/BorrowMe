@@ -22,4 +22,8 @@
     <style name="CircleImage">
         <item name="cornerSize">50%</item>
     </style>
+
+    <style name="RoundedCornerImage">
+        <item name="cornerSize">12dp</item>
+    </style>
 </resources>

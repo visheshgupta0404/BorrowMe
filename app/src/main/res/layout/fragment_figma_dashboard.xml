@@ -631,10 +631,24 @@
                     android:textSize="10sp" />
             </LinearLayout>
 
-            <Space
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_add_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_add"
+                    app:backgroundTint="@color/primary_blue"
+                    app:elevation="4dp"
+                    app:maxImageSize="24dp"
+                    app:tint="@color/white" />
+            </FrameLayout>
 
             <LinearLayout
                 android:id="@+id/nav_requests"
@@ -687,18 +701,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="28dp"
-        android:layout_gravity="bottom|center_horizontal"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/ic_add"
-        app:backgroundTint="@color/primary_blue"
-        app:elevation="16dp"
-        app:maxImageSize="24dp"
-        app:tint="@color/white" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

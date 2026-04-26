@@ -905,10 +905,24 @@
                     android:textSize="10sp" />
             </LinearLayout>
 
-            <Space
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_add_item"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_add"
+                    app:backgroundTint="@color/primary_blue"
+                    app:elevation="4dp"
+                    app:maxImageSize="24dp"
+                    app:tint="@color/white" />
+            </FrameLayout>
 
             <LinearLayout
                 android:id="@+id/nav_requests"
@@ -964,22 +978,6 @@
         </LinearLayout>
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_add_item"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:contentDescription="Add item"
-        android:src="@drawable/ic_add"
-        android:translationY="-18dp"
-        app:backgroundTint="#1E5BFF"
-        app:borderWidth="0dp"
-        app:elevation="10dp"
-        app:fabCustomSize="56dp"
-        app:layout_constraintBottom_toTopOf="@id/bottom_nav_shell"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:maxImageSize="24dp"
-        app:rippleColor="#551E5BFF"
-        app:tint="#FFFFFF" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

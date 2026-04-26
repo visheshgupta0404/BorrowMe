@@ -362,11 +362,22 @@
                     android:textSize="10sp" />
             </LinearLayout>
 
-            <!-- Floating Center Button Space -->
-            <View
+            <FrameLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1" />
+                android:layout_weight="1">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fabAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_add"
+                    app:backgroundTint="@color/primary_blue"
+                    app:elevation="4dp"
+                    app:fabSize="normal"
+                    app:tint="@color/white" />
+            </FrameLayout>
 
             <LinearLayout
                 android:id="@+id/navRequests"
@@ -416,17 +427,6 @@
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-    <!-- Center Floating Action Button -->
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabAdd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="36dp"
-        android:src="@drawable/ic_add"
-        app:backgroundTint="@color/primary_blue"
-        app:fabSize="normal"
-        app:layout_anchorGravity="bottom|center_horizontal"
-        app:tint="@color/white"
-        app:borderWidth="4dp" />
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
