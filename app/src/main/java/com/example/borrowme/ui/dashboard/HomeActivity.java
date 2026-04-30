@@ -19,7 +19,12 @@ import com.example.borrowme.ui.profile.ProfileActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import android.widget.ImageView;
 import android.widget.TextView;
+import com.bumptech.glide.Glide;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -40,6 +45,16 @@ public class HomeActivity extends AppCompatActivity {
 
         setupButtons();
         loadUserData();
+        updateDateTime();
+    }
+
+    private void updateDateTime() {
+        TextView tvCurrentDateTime = findViewById(R.id.tvCurrentDateTime);
+        if (tvCurrentDateTime != null) {
+            SimpleDateFormat sdf = new SimpleDateFormat("EEEE, MMM d • h:mm a", Locale.getDefault());
+            String currentDateAndTime = sdf.format(new Date());
+            tvCurrentDateTime.setText(currentDateAndTime);
+        }
     }
 
     private void loadUserData() {
@@ -51,11 +66,21 @@ public class HomeActivity extends AppCompatActivity {
                 .addOnSuccessListener(document -> {
                     if (document.exists()) {
                         String fullName = document.getString("fullName");
+                        String profileImageUrl = document.getString("profileImageUrl");
+                        
                         if (fullName != null && !fullName.isEmpty()) {
                             TextView tvWelcomeName = findViewById(R.id.tvWelcomeName);
                             if (tvWelcomeName != null) {
                                 tvWelcomeName.setText("Hello " + fullName.split(" ")[0] + "!!");
                             }
+                        }
+                        
+                        ImageView ivProfileHome = findViewById(R.id.ivProfileHome);
+                        if (ivProfileHome != null && profileImageUrl != null && !profileImageUrl.isEmpty()) {
+                            Glide.with(HomeActivity.this)
+                                .load(profileImageUrl)
+                                .placeholder(R.drawable.ic_person)
+                                .into(ivProfileHome);
                         }
                     }
                 });
