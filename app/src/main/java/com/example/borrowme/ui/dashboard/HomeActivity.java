@@ -26,7 +26,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import java.util.Locale;
+import android.os.Handler;
+import android.os.Looper;
+
 public class HomeActivity extends AppCompatActivity {
+    private Handler timeHandler = new Handler(Looper.getMainLooper());
+    private Runnable timeRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +51,30 @@ public class HomeActivity extends AppCompatActivity {
 
         setupButtons();
         loadUserData();
-        updateDateTime();
+        
+        // Initialize the live clock runnable
+        timeRunnable = new Runnable() {
+            @Override
+            public void run() {
+                updateDateTime();
+                // Update again in 60 seconds
+                timeHandler.postDelayed(this, 60000);
+            }
+        };
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Start the clock when user sees the screen
+        timeHandler.post(timeRunnable);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        // Stop the clock when app is in background to save battery
+        timeHandler.removeCallbacks(timeRunnable);
     }
 
     private void updateDateTime() {
