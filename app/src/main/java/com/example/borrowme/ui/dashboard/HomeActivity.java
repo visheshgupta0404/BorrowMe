@@ -170,10 +170,25 @@ public class HomeActivity extends AppCompatActivity {
                                 .into(ivTrustCardProfile);
                         }
 
-                        TextView tvTrustScoreHome = findViewById(R.id.tvTrustScoreHome);
-                        TextView tvCommunityLends = findViewById(R.id.tvCommunityLends);
                         if (tvTrustScoreHome != null && repScore != null) {
-                            tvTrustScoreHome.setText(String.format(Locale.getDefault(), "%.1f", repScore / 20.0));
+                            double score = repScore / 20.0;
+                            tvTrustScoreHome.setText(String.format(Locale.getDefault(), "%.1f", score));
+                            
+                            TextView tvRatingEmoji = findViewById(R.id.tvRatingEmoji);
+                            if (tvRatingEmoji != null) {
+                                String emoji = "⭐";
+                                if (score >= 4.8) emoji = "👑";
+                                else if (score >= 4.5) emoji = "🔥";
+                                else if (score >= 4.0) emoji = "🧡";
+                                tvRatingEmoji.setText(emoji);
+                                
+                                // Simple animation
+                                tvRatingEmoji.setScaleX(0.5f);
+                                tvRatingEmoji.setScaleY(0.5f);
+                                tvRatingEmoji.animate().scaleX(1.2f).scaleY(1.2f).setDuration(500).withEndAction(() -> 
+                                    tvRatingEmoji.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
+                                ).start();
+                            }
                         }
                         if (tvCommunityLends != null) {
                             tvCommunityLends.setText("Based on " + (lendCount != null ? lendCount : 0) + " community lends");
@@ -215,17 +230,6 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void setupButtons() {
-        View btnSearchGo = findViewById(R.id.btnSearchGo);
-        EditText etSearchHome = findViewById(R.id.etSearchHome);
-        if (btnSearchGo != null && etSearchHome != null) {
-            btnSearchGo.setOnClickListener(v -> {
-                String query = etSearchHome.getText().toString().trim();
-                Intent intent = new Intent(HomeActivity.this, FeedActivity.class);
-                intent.putExtra("searchQuery", query);
-                safeStartActivity(intent);
-            });
-        }
-
         ImageView ivProfileHome = findViewById(R.id.ivProfileHome);
         if (ivProfileHome != null) {
             ivProfileHome.setOnClickListener(v -> safeStartActivity(new Intent(this, ProfileActivity.class)));
