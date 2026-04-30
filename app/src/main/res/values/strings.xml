@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">BorrowMe</string>
+    <string name="emoji_crown">👑</string>
+    <string name="emoji_fire">🔥</string>
+    <string name="emoji_heart">🧡</string>
+    <string name="emoji_star">⭐</string>
 </resources>
