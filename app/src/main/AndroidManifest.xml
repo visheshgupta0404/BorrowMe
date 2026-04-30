@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" android:maxSdkVersion="28" />
 
     <application
+        android:name=".BorrowMeApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -61,6 +62,10 @@
 
         <activity
             android:name=".ui.items.AddItemActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.borrowing.RequestsManagementActivity"
             android:exported="false" />
 
         <provider
