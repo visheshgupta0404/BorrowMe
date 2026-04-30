@@ -11,7 +11,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bg_light"
+        android:background="@color/white"
         app:elevation="0dp">
 
         <LinearLayout
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingHorizontal="16dp"
-            android:paddingTop="24dp"
+            android:paddingTop="16dp"
             android:paddingBottom="16dp">
 
             <!-- Top Header -->
@@ -27,79 +27,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:layout_centerVertical="true"
+                    android:fontFamily="sans-serif-black"
+                    android:text="Borrow Dashboard"
+                    android:textColor="@color/text_dark"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        app:cardBackgroundColor="#1A0D59F2"
-                        app:cardCornerRadius="20dp"
-                        app:cardElevation="0dp"
-                        app:strokeWidth="0dp">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_location" />
-                    </com.google.android.material.card.MaterialCardView>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="8dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Lending in"
-                            android:textColor="@color/text_gray"
-                            android:textSize="12sp" />
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_vertical"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-black"
-                                android:text="Stanford University"
-                                android:textColor="@color/text_dark"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-
-                            <ImageView
-                                android:layout_width="16dp"
-                                android:layout_height="16dp"
-                                android:layout_marginStart="4dp"
-                                android:src="@drawable/ic_arrow_down" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </LinearLayout>
-
-                <com.google.android.material.card.MaterialCardView
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/ivProfileFeed"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_alignParentEnd="true"
-                    app:cardBackgroundColor="#80E2E8F0"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="0dp"
-                    app:strokeWidth="0dp">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center"
-                        android:src="@drawable/ic_search" />
-                </com.google.android.material.card.MaterialCardView>
+                    android:padding="2dp"
+                    android:src="@drawable/ic_person"
+                    android:background="#F5F6F8"
+                    app:shapeAppearanceOverlay="@style/CircleImage"
+                    app:strokeColor="#F1F5F9"
+                    app:strokeWidth="1dp" />
             </RelativeLayout>
 
             <!-- Search and Filter -->
@@ -109,20 +57,33 @@
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/etSearch"
+                <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="48dp"
                     android:layout_weight="1"
                     android:background="@drawable/bg_input"
-                    android:backgroundTint="#80E2E8F0"
-                    android:drawableStart="@drawable/ic_search"
-                    android:drawablePadding="12dp"
-                    android:hint="Search items to borrow..."
-                    android:inputType="text"
-                    android:paddingHorizontal="12dp"
-                    android:textColor="@color/text_dark"
-                    android:textSize="14sp" />
+                    android:paddingHorizontal="12dp">
+
+                    <ImageView
+                        android:id="@+id/ivSearchIconFeed"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_search"
+                        app:tint="@color/text_light_gray" />
+
+                    <EditText
+                        android:id="@+id/etSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toEndOf="@+id/ivSearchIconFeed"
+                        android:layout_marginStart="8dp"
+                        android:background="@null"
+                        android:hint="Search items to borrow..."
+                        android:inputType="text"
+                        android:textColor="@color/text_dark"
+                        android:textSize="14sp" />
+                </RelativeLayout>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/btnFilter"
@@ -131,14 +92,15 @@
                     android:layout_marginStart="8dp"
                     app:cardBackgroundColor="@color/primary_blue"
                     app:cardCornerRadius="12dp"
-                    app:cardElevation="4dp"
+                    app:cardElevation="2dp"
                     app:strokeWidth="0dp">
 
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:layout_gravity="center"
-                        android:src="@drawable/ic_filter" />
+                        android:src="@drawable/ic_filter"
+                        app:tint="@color/white" />
                 </com.google.android.material.card.MaterialCardView>
             </LinearLayout>
 
@@ -155,54 +117,54 @@
                     android:orientation="horizontal">
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnCatAll"
                         android:layout_width="wrap_content"
-                        android:layout_height="36dp"
+                        android:layout_height="40dp"
                         android:text="All Items"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="14sp"
                         app:backgroundTint="@color/primary_blue"
-                        app:cornerRadius="18dp"
-                        app:icon="@drawable/ic_home"
-                        app:iconPadding="8dp"
-                        app:iconSize="16dp"
-                        app:iconTint="@color/white" />
+                        app:cornerRadius="20dp" />
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnCatTextbooks"
                         style="@style/Widget.Material3.Button.TonalButton"
                         android:layout_width="wrap_content"
-                        android:layout_height="36dp"
+                        android:layout_height="40dp"
                         android:layout_marginStart="8dp"
                         android:text="Textbooks"
                         android:textAllCaps="false"
                         android:textColor="#475569"
                         android:textSize="14sp"
-                        app:backgroundTint="#80E2E8F0"
-                        app:cornerRadius="18dp" />
+                        app:backgroundTint="#F1F5F9"
+                        app:cornerRadius="20dp" />
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnCatElectronics"
                         style="@style/Widget.Material3.Button.TonalButton"
                         android:layout_width="wrap_content"
-                        android:layout_height="36dp"
+                        android:layout_height="40dp"
                         android:layout_marginStart="8dp"
                         android:text="Electronics"
                         android:textAllCaps="false"
                         android:textColor="#475569"
                         android:textSize="14sp"
-                        app:backgroundTint="#80E2E8F0"
-                        app:cornerRadius="18dp" />
+                        app:backgroundTint="#F1F5F9"
+                        app:cornerRadius="20dp" />
 
                     <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnCatLabGear"
                         style="@style/Widget.Material3.Button.TonalButton"
                         android:layout_width="wrap_content"
-                        android:layout_height="36dp"
+                        android:layout_height="40dp"
                         android:layout_marginStart="8dp"
                         android:text="Lab Gear"
                         android:textAllCaps="false"
                         android:textColor="#475569"
                         android:textSize="14sp"
-                        app:backgroundTint="#80E2E8F0"
-                        app:cornerRadius="18dp" />
+                        app:backgroundTint="#F1F5F9"
+                        app:cornerRadius="20dp" />
                 </LinearLayout>
             </HorizontalScrollView>
         </LinearLayout>
@@ -219,94 +181,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingHorizontal="16dp">
 
-            <RelativeLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="sans-serif-black"
+                android:text="Available Nearby"
+                android:textColor="@color/text_dark"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvFeedItems"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingVertical="8dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-black"
-                    android:text="Available Nearby"
-                    android:textColor="@color/text_dark"
-                    android:textSize="18sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:text="See all"
-                    android:textColor="@color/primary_blue"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-            </RelativeLayout>
-
-            <androidx.gridlayout.widget.GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:columnCount="2"
-                app:useDefaultMargins="false">
-
-                <!-- Item 1 -->
-                <include
-                    layout="@layout/item_feed_card"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_columnWeight="1"
-                    app:layout_row="0"
-                    app:layout_column="0"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="16dp" />
-
-                <!-- Item 2 -->
-                <include
-                    layout="@layout/item_feed_card"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_columnWeight="1"
-                    app:layout_row="0"
-                    app:layout_column="1"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="16dp" />
-
-                <!-- Item 3 -->
-                <include
-                    layout="@layout/item_feed_card"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_columnWeight="1"
-                    app:layout_row="1"
-                    app:layout_column="0"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="16dp" />
-
-                <!-- Item 4 -->
-                <include
-                    layout="@layout/item_feed_card"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    app:layout_columnWeight="1"
-                    app:layout_row="1"
-                    app:layout_column="1"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginBottom="16dp" />
-
-            </androidx.gridlayout.widget.GridLayout>
+                android:layout_marginTop="12dp"
+                android:nestedScrollingEnabled="false"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="2" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <!-- Bottom Navigation -->
+    <!-- Uniform Bottom Navigation -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="72dp"
         android:layout_gravity="bottom"
-        app:cardBackgroundColor="#CCFFFFFF"
+        app:cardBackgroundColor="#E6FFFFFF"
         app:cardCornerRadius="0dp"
         app:cardElevation="16dp"
         app:strokeWidth="0dp">
@@ -317,26 +221,26 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/navFeed"
+                android:id="@+id/navHome"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical">
-
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true">
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
-                    android:src="@drawable/ic_feed" />
-
+                    android:src="@drawable/ic_home"
+                    app:tint="@color/text_light_gray" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
-                    android:text="Feed"
-                    android:textColor="@color/primary_blue"
-                    android:textSize="10sp"
-                    android:textStyle="bold" />
+                    android:text="Home"
+                    android:textColor="@color/text_light_gray"
+                    android:textSize="10sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -345,14 +249,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical">
-
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true">
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_lendings"
                     app:tint="@color/text_light_gray" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -366,7 +270,6 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1">
-
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fabAdd"
                     android:layout_width="wrap_content"
@@ -385,14 +288,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical">
-
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true">
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_requests"
                     app:tint="@color/text_light_gray" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -408,14 +311,14 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical">
-
+                android:orientation="vertical"
+                android:clickable="true"
+                android:focusable="true">
                 <ImageView
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/ic_person"
                     app:tint="@color/text_light_gray" />
-
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -426,7 +329,5 @@
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
-
-
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

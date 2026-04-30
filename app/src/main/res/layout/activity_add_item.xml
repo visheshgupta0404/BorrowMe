@@ -277,47 +277,7 @@
                 android:layout_marginTop="24dp"
                 android:background="#F8FAFC" />
 
-            <!-- Hostel Visibility -->
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toStartOf="@+id/switchHostelOnly"
-                    android:layout_alignParentStart="true"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="sans-serif-medium"
-                        android:text="Hostel Visibility Only"
-                        android:textColor="@color/text_dark"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Only show to residents in your building"
-                        android:textColor="@color/text_gray"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <com.google.android.material.materialswitch.MaterialSwitch
-                    android:id="@+id/switchHostelOnly"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:checked="true"
-                    app:thumbTint="@color/white"
-                    app:trackDecorationTint="@color/primary_blue"
-                    app:trackTint="@color/primary_blue" />
-            </RelativeLayout>
+            <!-- Hostel Visibility section removed -->
 
             <!-- Submit Button -->
             <com.google.android.material.button.MaterialButton
