@@ -18,27 +18,44 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.borrowme.R;
 import com.example.borrowme.ui.dashboard.HomeActivity;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
 
     private boolean isPasswordVisible = false;
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_signup);
-        
-        View mainView = findViewById(R.id.main);
-        if (mainView != null) {
-            ViewCompat.setOnApplyWindowInsetsListener(mainView, (v, insets) -> {
-                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-                v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-                return insets;
-            });
-        }
+        try {
+            EdgeToEdge.enable(this);
+            setContentView(R.layout.activity_signup);
+            
+            mAuth = FirebaseAuth.getInstance();
+            db = FirebaseFirestore.getInstance();
+            
+            View mainView = findViewById(R.id.main);
+            if (mainView != null) {
+                ViewCompat.setOnApplyWindowInsetsListener(mainView, (v, insets) -> {
+                    Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                    v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+                    return insets;
+                });
+            }
 
-        setupUI();
+            setupUI();
+        } catch (Exception e) {
+            android.util.Log.e("SignupActivity", "Error in onCreate", e);
+            Toast.makeText(this, "Error starting Signup: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            finish();
+        }
     }
 
     private void setupUI() {
@@ -69,15 +86,62 @@ public class SignupActivity extends AppCompatActivity {
 
         if (btnCreateAccount != null) {
             btnCreateAccount.setOnClickListener(v -> {
-                // Navigate to Home Screen directly for now to ensure it works
-                navigateToHome();
+                String email = etEmail.getText().toString().trim();
+                String fullName = etFullName.getText().toString().trim();
+                String password = etPassword.getText().toString().trim();
+
+                if (fullName.isEmpty()) {
+                    etFullName.setError("Full name is required");
+                    return;
+                }
+
+                if (email.isEmpty()) {
+                    etEmail.setError("Email is required");
+                    return;
+                }
+
+                if (!email.toLowerCase().endsWith("@bmu.edu.in")) {
+                    etEmail.setError("Only @bmu.edu.in emails are allowed");
+                    Toast.makeText(this, "Please use your university email", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (password.length() < 6) {
+                    etPassword.setError("Password must be at least 6 characters");
+                    return;
+                }
+
+                // Create user in Firebase
+                android.widget.ProgressBar progressBar = findViewById(R.id.progressBar);
+                if (progressBar != null) progressBar.setVisibility(View.VISIBLE);
+                
+                btnCreateAccount.setEnabled(false);
+                android.util.Log.d("SignupActivity", "Starting Firebase Auth for: " + email);
+                
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(this, task -> {
+                            if (task.isSuccessful()) {
+                                android.util.Log.d("SignupActivity", "Auth successful");
+                                FirebaseUser user = mAuth.getCurrentUser();
+                                if (user != null) {
+                                    saveUserToFirestore(user, fullName, email);
+                                }
+                            } else {
+                                android.util.Log.e("SignupActivity", "Auth failed", task.getException());
+                                if (progressBar != null) progressBar.setVisibility(View.GONE);
+                                btnCreateAccount.setEnabled(true);
+                                String error = task.getException() != null ? task.getException().getMessage() : "Registration failed";
+                                Toast.makeText(SignupActivity.this, error, Toast.LENGTH_LONG).show();
+                            }
+                        });
             });
         }
 
         View tvLogin = findViewById(R.id.tvLogin);
         if (tvLogin != null) {
             tvLogin.setOnClickListener(v -> {
-                Toast.makeText(this, "Navigate to Login", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+                finish();
             });
         }
 
@@ -91,6 +155,39 @@ public class SignupActivity extends AppCompatActivity {
         Intent intent = new Intent(this, HomeActivity.class);
         startActivity(intent);
         finish();
+    }
+
+    private void saveUserToFirestore(FirebaseUser user, String fullName, String email) {
+        android.widget.TextView tvHostel = findViewById(R.id.tvHostel);
+        String hostel = tvHostel != null ? tvHostel.getText().toString() : "Not Selected";
+        
+        Map<String, Object> userData = new HashMap<>();
+        userData.put("uid", user.getUid());
+        userData.put("fullName", fullName);
+        userData.put("email", email);
+        userData.put("hostel", hostel);
+        userData.put("createdAt", System.currentTimeMillis());
+
+        android.util.Log.d("SignupActivity", "Saving user to Firestore: " + user.getUid());
+        
+        db.collection("users").document(user.getUid())
+                .set(userData)
+                .addOnCompleteListener(task -> {
+                    android.widget.ProgressBar progressBar = findViewById(R.id.progressBar);
+                    if (progressBar != null) progressBar.setVisibility(View.GONE);
+                    
+                    if (task.isSuccessful()) {
+                        android.util.Log.d("SignupActivity", "Firestore write successful");
+                        Toast.makeText(this, "Welcome to BorrowMe!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        android.util.Log.e("SignupActivity", "Firestore write failed", task.getException());
+                        Toast.makeText(this, "Account created! Setting up profile...", Toast.LENGTH_SHORT).show();
+                    }
+                    
+                    // Navigate regardless of firestore success - we can always retry profile sync later
+                    // This prevents the user from being stuck on the signup screen
+                    navigateToHome();
+                });
     }
 
     private void showHostelDialog() {

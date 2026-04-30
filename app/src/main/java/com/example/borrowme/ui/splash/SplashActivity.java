@@ -13,8 +13,11 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.borrowme.R;
+import com.example.borrowme.ui.auth.LoginActivity;
 import com.example.borrowme.ui.auth.SignupActivity;
+import com.example.borrowme.ui.dashboard.HomeActivity;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -56,8 +59,19 @@ public class SplashActivity extends AppCompatActivity {
                 }
             }
             handler.post(() -> {
-                startActivity(new Intent(SplashActivity.this, SignupActivity.class));
-                finish();
+                try {
+                    if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                        startActivity(new Intent(SplashActivity.this, HomeActivity.class));
+                    } else {
+                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                    }
+                    finish();
+                } catch (Exception e) {
+                    android.util.Log.e("SplashActivity", "Navigation failed", e);
+                    // Fallback to Login if something goes wrong
+                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                    finish();
+                }
             });
         }).start();
     }
