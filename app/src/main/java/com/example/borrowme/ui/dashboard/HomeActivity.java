@@ -16,6 +16,10 @@ import com.example.borrowme.ui.borrowing.RequestsManagementActivity;
 import com.example.borrowme.ui.items.AddItemActivity;
 import com.example.borrowme.ui.profile.MyLendingsActivity;
 import com.example.borrowme.ui.profile.ProfileActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import android.widget.TextView;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -35,6 +39,27 @@ public class HomeActivity extends AppCompatActivity {
         }
 
         setupButtons();
+        loadUserData();
+    }
+
+    private void loadUserData() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            FirebaseFirestore db = FirebaseFirestore.getInstance();
+            db.collection("users").document(user.getUid())
+                .get()
+                .addOnSuccessListener(document -> {
+                    if (document.exists()) {
+                        String fullName = document.getString("fullName");
+                        if (fullName != null && !fullName.isEmpty()) {
+                            TextView tvWelcomeName = findViewById(R.id.tvWelcomeName);
+                            if (tvWelcomeName != null) {
+                                tvWelcomeName.setText("Hello " + fullName.split(" ")[0] + "!!");
+                            }
+                        }
+                    }
+                });
+        }
     }
 
     private void setupButtons() {

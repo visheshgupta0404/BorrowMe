@@ -62,18 +62,18 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="102dp"
-                android:layout_height="98dp"
+                android:layout_height="102dp"
                 android:layout_gravity="center"
                 app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="24dp"
-                app:cardElevation="8dp"
+                app:cardCornerRadius="28dp"
+                app:cardElevation="12dp"
                 app:strokeWidth="0dp">
 
-                <View
-                    android:layout_width="52dp"
-                    android:layout_height="48dp"
-                    android:layout_gravity="center"
-                    android:background="@color/primary_blue" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_app_logo" />
             </com.google.android.material.card.MaterialCardView>
         </FrameLayout>
 

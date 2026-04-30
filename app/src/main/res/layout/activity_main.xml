@@ -85,7 +85,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:fontFamily="sans-serif-black"
-                android:text="Welcome to LendMe"
+                android:text="Welcome to BorrowMe"
                 android:textColor="@color/text_dark"
                 android:textSize="24sp"
                 android:textStyle="bold" />

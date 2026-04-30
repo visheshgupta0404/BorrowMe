@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.example.borrowme.databinding.ActivityProfileBinding
 import com.example.borrowme.ui.auth.SignupActivity
+import com.google.firebase.auth.FirebaseAuth
 import com.example.borrowme.ui.borrowing.RequestsManagementActivity
 import java.io.File
 import java.io.IOException
@@ -56,7 +57,29 @@ class ProfileActivity : AppCompatActivity() {
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        loadUserData()
         setupClickListeners()
+    }
+
+    private fun loadUserData() {
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user != null) {
+            val db = com.google.firebase.firestore.FirebaseFirestore.getInstance()
+            db.collection("users").document(user.uid)
+                .get()
+                .addOnSuccessListener { document ->
+                    if (document != null && document.exists()) {
+                        val fullName = document.getString("fullName")
+                        val hostel = document.getString("hostel")
+                        
+                        binding.tvUserName.text = fullName ?: "No Name"
+                        binding.tvLocation.text = hostel ?: "No Hostel"
+                    }
+                }
+                .addOnFailureListener { e ->
+                    Toast.makeText(this, "Failed to load profile", Toast.LENGTH_SHORT).show()
+                }
+        }
     }
 
     private fun setupClickListeners() {
@@ -81,6 +104,7 @@ class ProfileActivity : AppCompatActivity() {
         }
 
         binding.btnLogout.setOnClickListener {
+            FirebaseAuth.getInstance().signOut()
             val intent = Intent(this, SignupActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)

@@ -124,6 +124,31 @@ public class MainActivity extends AppCompatActivity {
 
         if (btnCreateAccount != null) {
             btnCreateAccount.setOnClickListener(v -> {
+                String email = etEmail.getText().toString().trim();
+                String fullName = etFullName.getText().toString().trim();
+                String password = etPassword.getText().toString().trim();
+
+                if (fullName.isEmpty()) {
+                    etFullName.setError("Full name is required");
+                    return;
+                }
+
+                if (email.isEmpty()) {
+                    etEmail.setError("Email is required");
+                    return;
+                }
+
+                if (!email.toLowerCase().endsWith("@bmu.edu.in")) {
+                    etEmail.setError("Only @bmu.edu.in emails are allowed");
+                    Toast.makeText(this, "Please use your university email", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (password.length() < 6) {
+                    etPassword.setError("Password must be at least 6 characters");
+                    return;
+                }
+
                 Intent intent = new Intent(this, HomeActivity.class);
                 startActivity(intent);
                 finish();
