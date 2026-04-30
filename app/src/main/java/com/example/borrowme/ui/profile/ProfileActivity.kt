@@ -16,6 +16,9 @@ import com.example.borrowme.databinding.ActivityProfileBinding
 import com.example.borrowme.ui.auth.SignupActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.example.borrowme.ui.borrowing.RequestsManagementActivity
+import com.google.firebase.storage.FirebaseStorage
+import com.bumptech.glide.Glide
+import com.google.firebase.firestore.FirebaseFirestore
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -40,7 +43,7 @@ class ProfileActivity : AppCompatActivity() {
     private val takePhotoLauncher =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
             if (success) {
-                photoUri?.let { binding.ivProfile.setImageURI(it) }
+                photoUri?.let { uploadImageToFirebase(it) }
             }
         }
 
@@ -48,7 +51,7 @@ class ProfileActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             uri?.let {
                 photoUri = it
-                binding.ivProfile.setImageURI(it)
+                uploadImageToFirebase(it)
             }
         }
 
@@ -74,12 +77,52 @@ class ProfileActivity : AppCompatActivity() {
                         
                         binding.tvUserName.text = fullName ?: "No Name"
                         binding.tvLocation.text = hostel ?: "No Hostel"
+                        
+                        val profileImageUrl = document.getString("profileImageUrl")
+                        if (!profileImageUrl.isNullOrEmpty()) {
+                            Glide.with(this)
+                                .load(profileImageUrl)
+                                .placeholder(com.example.borrowme.R.drawable.ic_person)
+                                .into(binding.ivProfile)
+                        }
                     }
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(this, "Failed to load profile", Toast.LENGTH_SHORT).show()
                 }
         }
+    }
+
+    private fun uploadImageToFirebase(uri: Uri) {
+        val user = FirebaseAuth.getInstance().currentUser ?: return
+        val storageRef = FirebaseStorage.getInstance().reference.child("profile_images/${user.uid}.jpg")
+        
+        Toast.makeText(this, "Uploading image...", Toast.LENGTH_SHORT).show()
+        
+        storageRef.putFile(uri)
+            .addOnSuccessListener {
+                storageRef.downloadUrl.addOnSuccessListener { downloadUri ->
+                    saveProfileImageUrlToFirestore(downloadUri.toString())
+                }
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Upload failed: ${it.message}", Toast.LENGTH_SHORT).show()
+            }
+    }
+
+    private fun saveProfileImageUrlToFirestore(url: String) {
+        val user = FirebaseAuth.getInstance().currentUser ?: return
+        val db = FirebaseFirestore.getInstance()
+        
+        db.collection("users").document(user.uid)
+            .update("profileImageUrl", url)
+            .addOnSuccessListener {
+                Glide.with(this).load(url).into(binding.ivProfile)
+                Toast.makeText(this, "Profile updated!", Toast.LENGTH_SHORT).show()
+            }
+            .addOnFailureListener {
+                Toast.makeText(this, "Failed to sync profile image", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun setupClickListeners() {

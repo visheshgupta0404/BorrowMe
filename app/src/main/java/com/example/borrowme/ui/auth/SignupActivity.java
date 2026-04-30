@@ -170,24 +170,21 @@ public class SignupActivity extends AppCompatActivity {
 
         android.util.Log.d("SignupActivity", "Saving user to Firestore: " + user.getUid());
         
+        // Start saving to Firestore in the background
         db.collection("users").document(user.getUid())
                 .set(userData)
                 .addOnCompleteListener(task -> {
-                    android.widget.ProgressBar progressBar = findViewById(R.id.progressBar);
-                    if (progressBar != null) progressBar.setVisibility(View.GONE);
-                    
-                    if (task.isSuccessful()) {
-                        android.util.Log.d("SignupActivity", "Firestore write successful");
-                        Toast.makeText(this, "Welcome to BorrowMe!", Toast.LENGTH_SHORT).show();
-                    } else {
-                        android.util.Log.e("SignupActivity", "Firestore write failed", task.getException());
-                        Toast.makeText(this, "Account created! Setting up profile...", Toast.LENGTH_SHORT).show();
+                    if (!task.isSuccessful()) {
+                        android.util.Log.e("SignupActivity", "Background Firestore write failed", task.getException());
                     }
-                    
-                    // Navigate regardless of firestore success - we can always retry profile sync later
-                    // This prevents the user from being stuck on the signup screen
-                    navigateToHome();
                 });
+
+        // IMMEDIATELY navigate to Home. 
+        // Firestore will continue saving in the background even as the screen changes.
+        android.widget.ProgressBar progressBar = findViewById(R.id.progressBar);
+        if (progressBar != null) progressBar.setVisibility(View.GONE);
+        Toast.makeText(this, "Welcome to BorrowMe!", Toast.LENGTH_SHORT).show();
+        navigateToHome();
     }
 
     private void showHostelDialog() {
