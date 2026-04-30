@@ -227,7 +227,7 @@
                         android:paddingHorizontal="12dp"
                         android:paddingVertical="4dp"
                         android:text="7 Days"
-                        android:textColor="@color/primary_blue"
+                        android:textColor="@color/white"
                         android:textSize="12sp"
                         android:textStyle="bold" />
                 </RelativeLayout>

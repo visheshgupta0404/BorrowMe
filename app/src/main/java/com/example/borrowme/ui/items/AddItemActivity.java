@@ -83,7 +83,8 @@ public class AddItemActivity extends AppCompatActivity {
         try {
             setContentView(R.layout.activity_add_item);
             db = FirebaseFirestore.getInstance();
-            storageRef = FirebaseStorage.getInstance().getReference();
+            // Explicitly using the bucket from google-services.json to avoid 404
+            storageRef = FirebaseStorage.getInstance("gs://borrowme-c3ca8.firebasestorage.app").getReference();
 
             initViews();
             setupListeners();
@@ -175,15 +176,22 @@ public class AddItemActivity extends AppCompatActivity {
         btnSubmit.setText("Saving...");
 
         if (photoUri != null) {
-            String fileName = "items/" + UUID.randomUUID().toString() + ".jpg";
-            StorageReference fileRef = storageRef.child(fileName);
-            fileRef.putFile(photoUri)
-                    .addOnSuccessListener(task -> fileRef.getDownloadUrl().addOnSuccessListener(uri -> saveToFirestore(uri.toString(), user.getUid())))
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(this, "Upload failed", Toast.LENGTH_SHORT).show();
+            com.example.borrowme.utils.ImgBBUploader.INSTANCE.uploadImage(this, photoUri, new com.example.borrowme.utils.ImgBBUploader.UploadCallback() {
+                @Override
+                public void onSuccess(String url) {
+                    runOnUiThread(() -> saveToFirestore(url, user.getUid()));
+                }
+
+                @Override
+                public void onFailure(String error) {
+                    runOnUiThread(() -> {
+                        Log.e(TAG, "ImgBB Upload failed: " + error);
+                        Toast.makeText(AddItemActivity.this, "Upload failed: " + error, Toast.LENGTH_LONG).show();
                         btnSubmit.setEnabled(true);
                         btnSubmit.setText("Submit");
                     });
+                }
+            });
         } else {
             saveToFirestore(existingImageUrl, user.getUid());
         }

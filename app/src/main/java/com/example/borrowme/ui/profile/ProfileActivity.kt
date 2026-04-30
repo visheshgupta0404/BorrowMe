@@ -1,6 +1,7 @@
 package com.example.borrowme.ui.profile
 
 import android.Manifest
+import android.util.Log
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -27,6 +28,7 @@ import com.example.borrowme.ui.auth.LoginActivity
 import com.example.borrowme.ui.auth.SignupActivity
 import com.example.borrowme.ui.borrowing.RequestsManagementActivity
 import com.example.borrowme.ui.dashboard.HomeActivity
+import com.example.borrowme.ui.items.AddItemActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
@@ -59,7 +61,7 @@ class ProfileActivity : AppCompatActivity() {
     private val takePhotoLauncher =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
             if (success) {
-                photoUri?.let { uploadImageToFirebase(it) }
+                photoUri?.let { uploadImageToImgBB(it) }
             }
         }
 
@@ -67,7 +69,7 @@ class ProfileActivity : AppCompatActivity() {
         registerForActivityResult(ActivityResultContracts.GetContent()) { uri ->
             uri?.let {
                 photoUri = it
-                uploadImageToFirebase(it)
+                uploadImageToImgBB(it)
             }
         }
 
@@ -154,21 +156,24 @@ class ProfileActivity : AppCompatActivity() {
             .addOnSuccessListener { loadRecentActivity() }
     }
 
-    private fun uploadImageToFirebase(uri: Uri) {
+    private fun uploadImageToImgBB(uri: Uri) {
         val user = FirebaseAuth.getInstance().currentUser ?: return
-        val storageRef = FirebaseStorage.getInstance().reference.child("users/${user.uid}/profile.jpg")
-        
         Toast.makeText(this, "Uploading image...", Toast.LENGTH_SHORT).show()
         
-        storageRef.putFile(uri)
-            .addOnSuccessListener {
-                storageRef.downloadUrl.addOnSuccessListener { downloadUri ->
-                    saveProfileImageUrlToFirestore(downloadUri.toString())
+        com.example.borrowme.utils.ImgBBUploader.uploadImage(this, uri, object : com.example.borrowme.utils.ImgBBUploader.UploadCallback {
+            override fun onSuccess(url: String) {
+                runOnUiThread {
+                    saveProfileImageUrlToFirestore(url)
                 }
             }
-            .addOnFailureListener {
-                Toast.makeText(this, "Upload failed: ${it.message}", Toast.LENGTH_SHORT).show()
+
+            override fun onFailure(error: String) {
+                runOnUiThread {
+                    Log.e("ProfileActivity", "ImgBB Upload failed: $error")
+                    Toast.makeText(this@ProfileActivity, "Upload failed: $error", Toast.LENGTH_LONG).show()
+                }
             }
+        })
     }
 
     private fun saveProfileImageUrlToFirestore(url: String) {

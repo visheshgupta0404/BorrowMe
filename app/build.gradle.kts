@@ -52,6 +52,7 @@ dependencies {
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
     implementation(libs.firebase.storage)
+    implementation(libs.okhttp)
     implementation(libs.glide)
     annotationProcessor(libs.glide.compiler)
 

@@ -73,6 +73,8 @@ class RequestsManagementActivity : AppCompatActivity() {
     }
 
     private fun setupListeners() {
+        findViewById<View>(R.id.btnBack)?.setOnClickListener { finish() }
+
         tabLayout?.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 val text = tab?.text?.toString()?.uppercase() ?: "PENDING"
@@ -236,6 +238,7 @@ class RequestsManagementActivity : AppCompatActivity() {
             when (status) {
                 "PENDING" -> {
                     holder.tvStatus?.setTextColor(Color.parseColor("#F59E0B"))
+                    holder.tvStatus?.setBackgroundResource(R.drawable.bg_badge_subtle)
                     holder.statusIndicator?.setBackgroundColor(Color.parseColor("#F59E0B"))
                     if (FirebaseAuth.getInstance().currentUser?.uid == lenderId) {
                         holder.btnApprove?.visibility = View.VISIBLE
@@ -245,15 +248,18 @@ class RequestsManagementActivity : AppCompatActivity() {
                     }
                 }
                 "APPROVED" -> {
-                    holder.tvStatus?.setTextColor(Color.parseColor("#2563EB")) // Blue for Approved
-                    holder.statusIndicator?.setBackgroundColor(Color.parseColor("#2563EB"))
+                    holder.tvStatus?.setTextColor(Color.parseColor("#10B981"))
+                    holder.tvStatus?.setBackgroundResource(R.drawable.bg_badge_subtle)
+                    holder.statusIndicator?.setBackgroundColor(Color.parseColor("#10B981"))
                 }
                 "REJECTED" -> {
                     holder.tvStatus?.setTextColor(Color.parseColor("#EF4444"))
+                    holder.tvStatus?.setBackgroundResource(R.drawable.bg_badge_subtle)
                     holder.statusIndicator?.setBackgroundColor(Color.parseColor("#EF4444"))
                 }
                 "RETURN_PENDING" -> {
                     holder.tvStatus?.setTextColor(Color.parseColor("#2563EB"))
+                    holder.tvStatus?.setBackgroundResource(R.drawable.bg_badge_subtle)
                     holder.statusIndicator?.setBackgroundColor(Color.parseColor("#2563EB"))
                 }
             }
