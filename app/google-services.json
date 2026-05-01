@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "331066608576",
+    "project_id": "borrowme-c3ca8",
+    "storage_bucket": "borrowme-c3ca8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:331066608576:android:1ac0703cb256e455b55625",
+        "android_client_info": {
+          "package_name": "com.example.borrowme"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_Z2MljYO60d5PS4MnAGFxjlMTLaNKyac"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
