@@ -164,6 +164,26 @@
                 android:textColorHint="@color/text_light_gray"
                 android:textSize="16sp" />
 
+            <!-- Item Description -->
+            <TextView
+                style="@style/InputLabel"
+                android:layout_marginTop="16dp"
+                android:text="Description" />
+
+            <EditText
+                android:id="@+id/etItemDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="100dp"
+                android:background="@drawable/bg_input"
+                android:hint="Tell others about the item..."
+                android:inputType="textMultiLine"
+                android:gravity="top"
+                android:padding="16dp"
+                android:textColor="@color/text_dark"
+                android:textColorHint="@color/text_light_gray"
+                android:textSize="16sp" />
+
             <!-- Category -->
             <TextView
                 style="@style/InputLabel"

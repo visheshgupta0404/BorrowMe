@@ -1,4 +1,4 @@
-package com.example.borrowme;
+package com.example.borrowme.core;
 
 import android.app.Application;
 import com.google.firebase.FirebaseApp;

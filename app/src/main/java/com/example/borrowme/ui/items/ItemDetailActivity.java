@@ -160,22 +160,6 @@ public class ItemDetailActivity extends AppCompatActivity {
                         if (tvOwnerReputation != null && repScore != null) {
                             double score = repScore / 20.0;
                             tvOwnerReputation.setText(String.format(Locale.getDefault(), "%.1f", score));
-                            
-                            TextView tvOwnerEmoji = findViewById(R.id.tvOwnerEmoji);
-                            if (tvOwnerEmoji != null) {
-                                String emoji = "⭐";
-                                if (score >= 4.8) emoji = "👑";
-                                else if (score >= 4.5) emoji = "🔥";
-                                else if (score >= 4.0) emoji = "🧡";
-                                tvOwnerEmoji.setText(emoji);
-                                
-                                // Animation
-                                tvOwnerEmoji.setScaleX(0.5f);
-                                tvOwnerEmoji.setScaleY(0.5f);
-                                tvOwnerEmoji.animate().scaleX(1.3f).scaleY(1.3f).setDuration(600).withEndAction(() -> 
-                                    tvOwnerEmoji.animate().scaleX(1.0f).scaleY(1.0f).setDuration(400).start()
-                                ).start();
-                            }
                         }
                     }
                 });
