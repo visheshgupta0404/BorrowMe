@@ -74,14 +74,27 @@ The app consists of **10 distinct screens**, each serving a specific purpose:
 
 ---
 
-### 6. Key Innovations
+### 6. Team & Work Division
+Our team collaborated on different modules to ensure a cohesive and functional application:
+
+| Member | Feature Module | Screens / Responsibilities |
+| :--- | :--- | :--- |
+| **Vedansh** | Authentication & Onboarding | `SplashActivity`, `LoginActivity`, `SignupActivity` |
+| **Vishal** | Core Dashboard & Discovery | `HomeActivity` (Dashboard), `FeedActivity` (Community Feed) |
+| **Vishesh** | Item Management | `AddItemActivity` (Lend), `ItemDetailActivity` (Item Info) |
+| **Yash** | Borrowing System | `RequestsManagementActivity`, Request Logic & Real-time Sync |
+| **Vivek** | Profile & Inventory | `ProfileActivity`, `MyLendingsActivity` (Inventory Management) |
+
+---
+
+### 7. Key Innovations
 - **Trust System:** A reputation score calculated based on lending history and return punctuality.
 - **Dual Status Management:** Real-time tracking of whether an item is currently with the owner or a borrower.
 - **Hybrid Storage:** Using ImgBB for item images to optimize storage costs while keeping Firestore for structured data.
 
 ---
 
-### 7. References (How things are connected)
+### 8. References (How things are connected)
 - **User -> Item:** `ownerId` in `items` collection refers to `uid` in `users` collection.
 - **Request -> User:** `borrowerId` and `lenderId` in `requests` collection refer to `uid` in `users`.
 - **Request -> Item:** `itemId` in `requests` collection refers to `documentID` in `items`.
