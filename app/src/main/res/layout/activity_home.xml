@@ -178,13 +178,12 @@
                         app:cardElevation="0dp">
 
                         <ImageView
-                            android:id="@+id/ivTrustCardProfile"
+                            android:id="@+id/ivTrustCardIllustration"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
+                            android:scaleType="centerInside"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_person"
-                            app:tint="@color/primary_blue" />
+                            android:src="@mipmap/ic_launcher_new" />
                     </com.google.android.material.card.MaterialCardView>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

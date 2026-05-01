@@ -154,8 +154,6 @@ public class HomeActivity extends AppCompatActivity {
                         }
 
                         ImageView ivProfileHome = findViewById(R.id.ivProfileHome);
-                        ImageView ivTrustCardProfile = findViewById(R.id.ivTrustCardProfile);
-                        
                         if (ivProfileHome != null) {
                             Glide.with(this).load(profileImageUrl != null && !profileImageUrl.isEmpty() ? profileImageUrl : R.drawable.ic_person)
                                 .placeholder(R.drawable.ic_person)
@@ -163,31 +161,66 @@ public class HomeActivity extends AppCompatActivity {
                                 .circleCrop()
                                 .into(ivProfileHome);
                         }
-                        if (ivTrustCardProfile != null) {
-                            Glide.with(this).load(profileImageUrl != null && !profileImageUrl.isEmpty() ? profileImageUrl : R.drawable.ic_person)
-                                .placeholder(R.drawable.ic_person)
-                                .error(R.drawable.ic_person)
-                                .into(ivTrustCardProfile);
+                        
+                        ImageView ivTrustCardIllustration = findViewById(R.id.ivTrustCardIllustration);
+                        if (ivTrustCardIllustration != null) {
+                            // Zoom/Pulse animation
+                            ivTrustCardIllustration.animate()
+                                .scaleX(1.1f)
+                                .scaleY(1.1f)
+                                .setDuration(1200)
+                                .setInterpolator(new android.view.animation.AccelerateDecelerateInterpolator())
+                                .withEndAction(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        ivTrustCardIllustration.animate()
+                                            .scaleX(1.0f)
+                                            .scaleY(1.0f)
+                                            .setDuration(1200)
+                                            .setInterpolator(new android.view.animation.AccelerateDecelerateInterpolator())
+                                            .withEndAction(this)
+                                            .start();
+                                    }
+                                }).start();
                         }
 
+                        TextView tvTrustScoreHome = findViewById(R.id.tvTrustScoreHome);
+                        TextView tvCommunityLends = findViewById(R.id.tvCommunityLends);
+                        
                         if (tvTrustScoreHome != null && repScore != null) {
-                            double score = repScore / 20.0;
-                            tvTrustScoreHome.setText(String.format(Locale.getDefault(), "%.1f", score));
+                            double finalScore = repScore / 20.0;
+                            
+                            // Animated score counting
+                            android.animation.ValueAnimator animator = android.animation.ValueAnimator.ofFloat(0f, (float) finalScore);
+                            animator.setDuration(1000);
+                            animator.addUpdateListener(animation -> {
+                                float value = (float) animation.getAnimatedValue();
+                                tvTrustScoreHome.setText(String.format(Locale.getDefault(), "%.1f", value));
+                            });
+                            animator.start();
                             
                             TextView tvRatingEmoji = findViewById(R.id.tvRatingEmoji);
                             if (tvRatingEmoji != null) {
                                 String emoji = "⭐";
-                                if (score >= 4.8) emoji = "👑";
-                                else if (score >= 4.5) emoji = "🔥";
-                                else if (score >= 4.0) emoji = "🧡";
+                                if (finalScore >= 4.5) emoji = "🔥";
+                                else if (finalScore >= 4.0) emoji = "🧡";
                                 tvRatingEmoji.setText(emoji);
                                 
-                                // Simple animation
-                                tvRatingEmoji.setScaleX(0.5f);
-                                tvRatingEmoji.setScaleY(0.5f);
-                                tvRatingEmoji.animate().scaleX(1.2f).scaleY(1.2f).setDuration(500).withEndAction(() -> 
-                                    tvRatingEmoji.animate().scaleX(1.0f).scaleY(1.0f).setDuration(300).start()
-                                ).start();
+                                // Enhanced Pulse Animation
+                                tvRatingEmoji.setScaleX(0f);
+                                tvRatingEmoji.setScaleY(0f);
+                                tvRatingEmoji.animate()
+                                    .scaleX(1.4f)
+                                    .scaleY(1.4f)
+                                    .setDuration(600)
+                                    .setInterpolator(new android.view.animation.OvershootInterpolator())
+                                    .withEndAction(() -> 
+                                        tvRatingEmoji.animate()
+                                            .scaleX(1.0f)
+                                            .scaleY(1.0f)
+                                            .setDuration(400)
+                                            .start()
+                                    ).start();
                             }
                         }
                         if (tvCommunityLends != null) {

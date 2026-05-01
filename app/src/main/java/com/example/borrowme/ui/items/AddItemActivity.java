@@ -45,7 +45,7 @@ import java.util.UUID;
 public class AddItemActivity extends AppCompatActivity {
     private static final String TAG = "AddItemActivity";
 
-    private EditText etItemName;
+    private EditText etItemName, etItemDescription;
     private TextView tvCategory;
     private TextView tvDaysValue;
     private Slider sliderDays;
@@ -98,6 +98,7 @@ public class AddItemActivity extends AppCompatActivity {
 
     private void initViews() {
         etItemName = findViewById(R.id.etItemName);
+        etItemDescription = findViewById(R.id.etItemDescription);
         tvCategory = findViewById(R.id.tvCategory);
         tvDaysValue = findViewById(R.id.tvDaysValue);
         sliderDays = findViewById(R.id.sliderDays);
@@ -201,6 +202,7 @@ public class AddItemActivity extends AppCompatActivity {
         Map<String, Object> data = new HashMap<>();
         data.put("ownerId", uid);
         data.put("title", etItemName.getText().toString().trim());
+        data.put("description", etItemDescription.getText().toString().trim());
         data.put("category", tvCategory.getText().toString());
         data.put("imageUrl", imageUrl);
         data.put("maxBorrowDays", sliderDays.getValue());
@@ -224,6 +226,7 @@ public class AddItemActivity extends AppCompatActivity {
         db.collection("items").document(existingItemId).get().addOnSuccessListener(doc -> {
             if (doc.exists()) {
                 etItemName.setText(doc.getString("title"));
+                etItemDescription.setText(doc.getString("description"));
                 tvCategory.setText(doc.getString("category"));
                 existingImageUrl = doc.getString("imageUrl");
                 if (existingImageUrl != null && ivItemPreview != null) {
