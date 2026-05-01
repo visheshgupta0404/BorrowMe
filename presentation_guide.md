@@ -78,7 +78,7 @@ The app consists of **10 distinct screens**, each serving a specific purpose:
 Our team collaborated on different modules to ensure a cohesive and functional application:
 
 | Member | Feature Module | Screens / Responsibilities |
-| :--- | :--- | :--- |
+| :--- | :--- | :--- | 
 | **Vedansh** | Authentication & Onboarding | `SplashActivity`, `LoginActivity`, `SignupActivity` |
 | **Vishal** | Core Dashboard & Discovery | `HomeActivity` (Dashboard), `FeedActivity` (Community Feed) |
 | **Vishesh** | Item Management | `AddItemActivity` (Lend), `ItemDetailActivity` (Item Info) |
