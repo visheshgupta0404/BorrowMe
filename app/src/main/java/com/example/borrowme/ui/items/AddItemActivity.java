@@ -177,7 +177,7 @@ public class AddItemActivity extends AppCompatActivity {
         btnSubmit.setText("Saving...");
 
         if (photoUri != null) {
-            com.example.borrowme.utils.ImgBBUploader.INSTANCE.uploadImage(this, photoUri, new com.example.borrowme.utils.ImgBBUploader.UploadCallback() {
+            com.example.borrowme.utils.ImgBBUploader.uploadImage(this, photoUri, new com.example.borrowme.utils.ImgBBUploader.UploadCallback() {
                 @Override
                 public void onSuccess(String url) {
                     runOnUiThread(() -> saveToFirestore(url, user.getUid()));
